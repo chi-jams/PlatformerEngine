@@ -1,0 +1,8 @@
+*.exe
+*.dll
+*.o
+*.obj
+.vs/*
+*Debug/*
+Platformer.sln
+Platformer.VC*
