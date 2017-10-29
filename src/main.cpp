@@ -4,13 +4,13 @@
 #include <fstream>
 #include <ctime>
 #include <set>
-#include "SDL.h"
-#include "SDL_image.h"
+#include "SDL2/SDL.h"
+#include "SDL2/SDL_image.h"
 #include "texture.h"
 #include "animation.h"
 #include "constants.h"
 #include "world.h"
-#include "Player.h"
+#include "player.h"
 
 
 const int SCREEN_WIDTH = 1600;
@@ -132,6 +132,9 @@ int main( int argc, char* args[] )
                 }
 
                 currentKeyStates = SDL_GetKeyboardState( NULL );
+                if ( currentKeyStates[ SDL_SCANCODE_Q ] ) {
+                    quit = true;
+                }
 
                 moveDir[ UP ] = currentKeyStates[ SDL_SCANCODE_W ] || currentKeyStates[ SDL_SCANCODE_SPACE ];
                 moveDir[ DOWN ] = currentKeyStates[ SDL_SCANCODE_S ];
@@ -163,7 +166,7 @@ int main( int argc, char* args[] )
                 // Put all game updating related stuff below here //
                 ////////////////////////////////////////////////////
 
-                curTime = (int)clock();
+                curTime = (int)clock(); 
 
                 //player->updateRect();
                 player->movePlayer( moveDir, curTime );

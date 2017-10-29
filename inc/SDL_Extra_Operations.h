@@ -2,7 +2,7 @@
 #define SDL_EXT_OPS_H_
 
 #include <iostream>
-#include "SDL.h"
+#include "SDL2/SDL.h"
 
 bool operator==( const SDL_Rect one, const SDL_Rect two )
 {

@@ -1,7 +1,7 @@
 
 
 #include <ctime>
-#include "SDL.h"
+#include "SDL2/SDL.h"
 #include "animation.h"
 
 Animation::Animation()

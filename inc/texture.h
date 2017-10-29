@@ -2,7 +2,7 @@
 #define TEXTURE_H_
 
 #include <string>
-#include "SDL.h"
+#include "SDL2/SDL.h"
 
 // Texture Wrapper Class
 class Texture
