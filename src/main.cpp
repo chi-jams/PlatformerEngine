@@ -82,94 +82,92 @@ int main( int argc, char* args[] )
     if( !init() )
     {
         std::cout<< "Failed to initialize! SDL Error: " << SDL_GetError() << std::endl;
+        exit(-1);
     }
-    else
+
+    if( !loadMedia() )
     {
-        if( !loadMedia() )
+        std::cout << "Failed to load resources! SDL Error: " << SDL_GetError() << std::endl;
+        exit(-1);
+    }
+
+    // Whether or not the user wants to get out of the program.
+    bool quit = false;
+
+    gameState curState = IN_GAME;
+
+    std::string loadedLevel = "Levels/level7.txt";
+
+    World* newWorld = new World( loadedLevel );
+
+    int playerStartX = newWorld->getPlayerStartX();
+    int playerStartY = newWorld->getPlayerStartY();
+    Player* player = new Player( playerStartX, playerStartY );
+
+    int moveDir[ NUM_DIRECTIONS ];
+        moveDir[ UP ] = STOPPED;
+        moveDir[ DOWN ] = STOPPED;
+        moveDir[ LEFT ] = STOPPED;
+        moveDir[ RIGHT ] = STOPPED;
+
+    int camX = 0,
+        camY = 0,
+        camSpeed = 10;
+
+    ////////////////////////////////////////
+    // This is where the game loop starts //
+    ////////////////////////////////////////
+    while( !quit )
+    {
+        SDL_Event e;
+
+        // Handle all joystick, gamepad, keyboard stuff before actually
+        // doing any updating in the game.
+        while( SDL_PollEvent( &e ) != 0 )
         {
-            std::cout << "failed to load resources! SDL Error: " << SDL_GetError() << std::endl;
-        }
-        else
-        {
-            // Whether or not the user wants to get out of the program.
-            bool quit = false;
-
-            gameState curState = IN_GAME;
-
-			std::string loadedLevel = "Levels/level7.txt";
-
-            World* newWorld = new World( loadedLevel );
-
-            int playerStartX = newWorld->getPlayerStartX();
-            int playerStartY = newWorld->getPlayerStartY();
-            Player* player = new Player( playerStartX, playerStartY );
-
-            int moveDir[ NUM_DIRECTIONS ];
-                moveDir[ UP ] = STOPPED;
-                moveDir[ DOWN ] = STOPPED;
-                moveDir[ LEFT ] = STOPPED;
-                moveDir[ RIGHT ] = STOPPED;
- 
-            int camX = 0,
-                camY = 0,
-                camSpeed = 10;
-
-            ////////////////////////////////////////
-            // This is where the game loop starts //
-            ////////////////////////////////////////
-            while( !quit )
+            if( e.type == SDL_QUIT )
             {
-                SDL_Event e;
-
-                // Handle all joystick, gamepad, keyboard stuff before actually
-                // doing any updating in the game.
-                while( SDL_PollEvent( &e ) != 0 )
-                {
-                    if( e.type == SDL_QUIT )
-                    {
-                        quit = true;
-                    }
-                }
-
-                currentKeyStates = SDL_GetKeyboardState( NULL );
-                if ( currentKeyStates[ SDL_SCANCODE_Q ] ) {
-                    quit = true;
-                }
-
-                moveDir[ UP ] = currentKeyStates[ SDL_SCANCODE_W ] || currentKeyStates[ SDL_SCANCODE_SPACE ];
-                moveDir[ DOWN ] = currentKeyStates[ SDL_SCANCODE_S ];
-                moveDir[ LEFT ] = currentKeyStates[ SDL_SCANCODE_A ];
-                moveDir[ RIGHT ] = currentKeyStates[ SDL_SCANCODE_D ];
-
-                ////////////////////////////////////////////////////
-                // Put all game updating related stuff below here //
-                ////////////////////////////////////////////////////
-
-                curTime = (int)clock(); 
-
-                //player->updateRect();
-                player->movePlayer( moveDir, curTime );
-                player->setMapX( player->getXPos() / newWorld->getTileSize() );
-                player->setMapY( player->getYPos() / newWorld->getTileSize() );
-                
-                // We're going to check a set of tiles 3 wide and 4 tall for the player.
-                newWorld->worldCollisionsWith( player, 2, 3 );
-
-                //////////////////////////////////////////////
-                // Put all drawing related stuff below here //
-                //////////////////////////////////////////////
-
-                SDL_RenderClear( mainRenderer );                
-                
-                camX = player->getXPos() + player->getWidth() / 2;
-                camY = player->getYPos() + player->getHeight() / 2;
-                
-                drawEverything( player, newWorld, camX, camY );
-
-                SDL_RenderPresent( mainRenderer );
-
+                quit = true;
             }
         }
+
+        currentKeyStates = SDL_GetKeyboardState( NULL );
+        if ( currentKeyStates[ SDL_SCANCODE_Q ] ) {
+            quit = true;
+        }
+
+        moveDir[ UP ] = currentKeyStates[ SDL_SCANCODE_W ] || currentKeyStates[ SDL_SCANCODE_SPACE ];
+        moveDir[ DOWN ] = currentKeyStates[ SDL_SCANCODE_S ];
+        moveDir[ LEFT ] = currentKeyStates[ SDL_SCANCODE_A ];
+        moveDir[ RIGHT ] = currentKeyStates[ SDL_SCANCODE_D ];
+
+        ////////////////////////////////////////////////////
+        // Put all game updating related stuff below here //
+        ////////////////////////////////////////////////////
+
+        curTime = (int)clock(); 
+
+        //player->updateRect();
+        player->movePlayer( moveDir, curTime );
+        player->setMapX( player->getXPos() / newWorld->getTileSize() );
+        player->setMapY( player->getYPos() / newWorld->getTileSize() );
+        
+        // We're going to check a set of tiles 3 wide and 4 tall for the player.
+        newWorld->worldCollisionsWith( player, 2, 3 );
+
+        //////////////////////////////////////////////
+        // Put all drawing related stuff below here //
+        //////////////////////////////////////////////
+
+        SDL_RenderClear( mainRenderer );                
+        
+        camX = player->getXPos() + player->getWidth() / 2;
+        camY = player->getYPos() + player->getHeight() / 2;
+        
+        drawEverything( player, newWorld, camX, camY );
+
+        SDL_RenderPresent( mainRenderer );
+
     }
 
     close();
