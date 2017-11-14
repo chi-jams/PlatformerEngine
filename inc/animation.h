@@ -27,14 +27,14 @@ class Animation
         // The amount of time one fram should be
         // displayed before switching tot he next.
         // Also the last time the framed changed.
-        int displayTime,
-            lastChange;
+        double displayTime,
+               lastChange;
 
     public:
         Animation();
-        Animation( Texture* spriteSheet, SDL_Rect frame, int numFrames, int frameDelay );
+        Animation( Texture* spriteSheet, SDL_Rect frame, int numFrames, double frameDelay );
 
-        void initAnimation( Texture* spriteSheet, SDL_Rect frame, int numFrames, int frameDelay );
+        void initAnimation( Texture* spriteSheet, SDL_Rect frame, int numFrames, double frameDelay );
 
         ~Animation();
 

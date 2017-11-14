@@ -106,11 +106,7 @@ int main( int argc, char* args[] )
     int playerStartY = newWorld->getPlayerStartY();
     Player* player = new Player( playerStartX, playerStartY );
 
-    int moveDir[ NUM_DIRECTIONS ];
-        moveDir[ UP ] = STOPPED;
-        moveDir[ DOWN ] = STOPPED;
-        moveDir[ LEFT ] = STOPPED;
-        moveDir[ RIGHT ] = STOPPED;
+    int moveDir[ NUM_DIRECTIONS ] = { STOPPED };
 
     int camX = 0,
         camY = 0,
@@ -149,16 +145,11 @@ int main( int argc, char* args[] )
         
         curTime = (double)clock() / CLOCKS_PER_SEC; 
         deltaTime = curTime - lastTime;
-        if( deltaTime > MAX_TIMESTEP) 
-        {
-            deltaTime = MAX_TIMESTEP;
-        }
-        //std::cout << lastTime << ", " << curTime << ", " << (curTime - lastTime) << std::endl;
-        std::cout << deltaTime << std::endl;
         lastTime = curTime;
-        //deltaTime = 2;
 
-        //player->updateRect();
+        if( deltaTime > MAX_TIMESTEP) 
+            deltaTime = MAX_TIMESTEP;
+
         player->movePlayer( moveDir, deltaTime );
         player->setMapX( player->getXPos() / newWorld->getTileSize() );
         player->setMapY( player->getYPos() / newWorld->getTileSize() );
@@ -431,12 +422,12 @@ bool loadMedia()
     // Initialize the idle animation.
     playerFrame.x = 0;
     playerFrame.y = 0;
-    playerAnimations[ PLAYER_IDLE ].initAnimation( playerSprites, playerFrame, 1, 0 );
+    playerAnimations[ PLAYER_IDLE ].initAnimation( playerSprites, playerFrame, 1, 0.0 );
 
     // Initialize the walking animation.
     playerFrame.x = 50;
     playerFrame.y = 0;
-    playerAnimations[ PLAYER_WALKING ].initAnimation( playerSprites, playerFrame, 4, 100 );
+    playerAnimations[ PLAYER_WALKING ].initAnimation( playerSprites, playerFrame, 4, 0.1 );
 
 	return success;
 }

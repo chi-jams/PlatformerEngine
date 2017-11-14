@@ -17,17 +17,17 @@ Animation::Animation()
     numFrames = 0;
     curFrame = 0;
 
-    displayTime = 0;
-    lastChange = 0;
+    displayTime = 0.0;
+    lastChange = 0.0;
 
 }
 
-Animation::Animation( Texture* spriteSheet, SDL_Rect frame, int numFrames, int frameDelay )
+Animation::Animation( Texture* spriteSheet, SDL_Rect frame, int numFrames, double frameDelay )
 {
     initAnimation( spriteSheet, frame, numFrames, frameDelay );
 }
 
-void Animation::initAnimation( Texture* spriteSheet, SDL_Rect frame, int numFrames, int frameDelay )
+void Animation::initAnimation( Texture* spriteSheet, SDL_Rect frame, int numFrames, double frameDelay )
 {
     setTexture( spriteSheet );
     
@@ -39,7 +39,7 @@ void Animation::initAnimation( Texture* spriteSheet, SDL_Rect frame, int numFram
 
     // Get how long of a time we want between frames.
     displayTime = frameDelay;
-    lastChange = 0;
+    lastChange = 0.0;
 }
 
 Animation::~Animation()
@@ -61,8 +61,8 @@ void Animation::render( int x, int y, SDL_RendererFlip flip )
     if( numFrames > 1 )
     {
         // If the frame has been shown its designated time, change to the next frame.
-        int curTime = clock();
-        if( lastChange + displayTime < clock() )
+        double curTime = (double)clock() / CLOCKS_PER_SEC;
+        if( lastChange + displayTime < curTime )
         {
             lastChange = curTime;
             curFrame++;
