@@ -12,10 +12,10 @@ class Rect
         // for updating the game, meaning that we move things according
         // to how many seconds have passed, rather than now many update
         // cycles have occured.
-        int timeLastPolled;
+        //int timeLastPolled;
 
         // How much time has elapsed since the last cycle.
-        int deltaTime;
+        //int deltaTime;
 
         // The largest amount of time that can occur between updates.
         int MAX_DELTA_TIME;
@@ -69,11 +69,11 @@ class Rect
         Rect( int x, int y, int w, int h );
 
         // Does all the moving of the rectangle object.
-        void updateRect();
+        void updateRect( int deltaTime );
 
         // Updates how much time has elapsed since the last cycle, used in
         // all of the time based updating methods.
-        void updateTime( int curTime );
+        //void updateTime( int curTime );
 
         // Checks if two rectangles are touching each other.
         bool intersects( Rect* inputRect );
@@ -89,7 +89,7 @@ class Rect
         direction collidesNoOverlap( Rect* inputRect );
 
         // If gravity is enabled on the object, make that object fall.
-        void updateGravity();
+        void updateGravity( int deltaTime );
 
         // If gravity applies, and the rectangle can jump
         void jump();
@@ -141,7 +141,6 @@ class Rect
 
         // Check if the rectangle is actively trying to ascend
         bool isAscending() { return ascending; } 
-
 
 };
 

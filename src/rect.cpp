@@ -20,7 +20,7 @@ Rect::Rect( int x, int y, int w, int h )
     this->h = h;
 }
 
-void Rect::updateRect()
+void Rect::updateRect( int deltaTime )
 {    
     // the 1000 is for 1000 miliseconds, we multipy
     x += ( xVel / 1000.0 ) * deltaTime;
@@ -29,7 +29,7 @@ void Rect::updateRect()
     //std::cout << x << " " << y << std::endl;
 }
 
-
+/*
 void Rect::updateTime( int curTime )
 {
     deltaTime = curTime - timeLastPolled;
@@ -43,6 +43,7 @@ void Rect::updateTime( int curTime )
         deltaTime = MAX_DELTA_TIME;
     }
 }
+*/
 
 // This function only checks if two rectangles overlap
 // each other.
@@ -224,7 +225,7 @@ direction Rect::collidesNoOverlap( Rect* inputRect )
 
 // Literally just making stuff fall. Seriously, not that hard to figure out.
 // Now based off of time rather than update speed.
-void Rect::updateGravity()
+void Rect::updateGravity( int deltaTime )
 {
     // Check if gravity is enabled, if it is, then enable this functionality
     if( gravityEnabled )

@@ -33,9 +33,6 @@ class Player: public Rect
         Player();
         Player( int xPos, int yPos, int world_size = DEFAULT_PLAYER_SIZE );
 
-        // Player actions
-        void movePlayer( int moveDir[4] );
-
         // Updated version of player actions, uses variable time step
         void movePlayer( int moveDir[4], int curTime );
 

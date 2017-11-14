@@ -47,8 +47,6 @@ Player::Player()
 
     facing = RIGHT;
 
-    timeLastPolled = 0;
-
     // 34 miliseconds is the max amount of time between updates allowed.
     // This is the amount that would cause the game to run at 30 fps.
     MAX_DELTA_TIME = 34;
@@ -66,10 +64,8 @@ Player::Player( int x, int y, int world_size )
     h = w * 2;
 }
 
-void Player::movePlayer( int moveDir[4], int curTime )
+void Player::movePlayer( int moveDir[4], int deltaTime )
 {
-    updateTime( curTime );
-
     //WALKING//
     
     // The player will change his movement based on a multiple of this value.
@@ -148,12 +144,12 @@ void Player::movePlayer( int moveDir[4], int curTime )
         terminalVelocity = 2000;
     }
 
-    updateGravity();
+    updateGravity( deltaTime );
 
     if( xVel > 0 )
         facing = RIGHT;
     else if( xVel < 0 )
         facing = LEFT;
 
-    updateRect();
+    updateRect( deltaTime );
 }

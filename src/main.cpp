@@ -146,9 +146,13 @@ int main( int argc, char* args[] )
         ////////////////////////////////////////////////////
 
         curTime = (int)clock(); 
+        //deltaTime = (lastTime - curTime) >> 10;
+        lastTime = curTime;
+        deltaTime = 2;
 
         //player->updateRect();
-        player->movePlayer( moveDir, curTime );
+        player->movePlayer( moveDir, deltaTime );
+        std::cout << player->getXPos() << ", " << player->getYPos() << std::endl;
         player->setMapX( player->getXPos() / newWorld->getTileSize() );
         player->setMapY( player->getYPos() / newWorld->getTileSize() );
         
