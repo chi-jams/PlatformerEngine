@@ -140,27 +140,6 @@ int main( int argc, char* args[] )
                 moveDir[ DOWN ] = currentKeyStates[ SDL_SCANCODE_S ];
                 moveDir[ LEFT ] = currentKeyStates[ SDL_SCANCODE_A ];
                 moveDir[ RIGHT ] = currentKeyStates[ SDL_SCANCODE_D ];
-                /*
-                if( currentKeyStates[ SDL_SCANCODE_RIGHT ] )
-                {
-                    camX += camSpeed;
-                }
-                else if( currentKeyStates[ SDL_SCANCODE_LEFT ] )
-                {
-                    camX -= camSpeed;
-                }
-                
-                if( currentKeyStates[ SDL_SCANCODE_UP ] )
-                {
-                    camY -= camSpeed;
-                }
-                else if( currentKeyStates[ SDL_SCANCODE_DOWN ] )
-                {
-                    camY += camSpeed;
-                }
-                */
-                //camX += camSpeed * moveDir[ X ];
-                //camY += camSpeed * moveDir[ Y ];
 
                 ////////////////////////////////////////////////////
                 // Put all game updating related stuff below here //
@@ -172,38 +151,6 @@ int main( int argc, char* args[] )
                 player->movePlayer( moveDir, curTime );
                 player->setMapX( player->getXPos() / newWorld->getTileSize() );
                 player->setMapY( player->getYPos() / newWorld->getTileSize() );
-                
-                /*
-                for( int i = 0; i < newWorld->getNumHitboxes(); i++ )
-                {
-                    direction outDir;
-                    if( ( outDir = player->collidesNoOverlap( newWorld->getHitboxRect(i) ) ) == DOWN )
-                        player->setOnGround();
-
-                    std::string output;
-
-                    switch( outDir )
-                    {
-                        case NONE:
-                            output = "NONE";
-                            break;
-                        case UP:
-                            output = "UP";
-                            break;
-                        case DOWN:
-                            output = "DOWN";
-                            break;
-                        case LEFT:
-                            output = "LEFT";
-                            break;
-                        case RIGHT:
-                            output = "RIGHT";
-                            break;
-                    }
-                    std::cout << output << std::endl;
-                }
-                */
-                //std::cout << player->getMapX() << " " << player->getMapY() << std::endl;
                 
                 // We're going to check a set of tiles 3 wide and 4 tall for the player.
                 newWorld->worldCollisionsWith( player, 2, 3 );
@@ -220,18 +167,6 @@ int main( int argc, char* args[] )
                 drawEverything( player, newWorld, camX, camY );
 
                 SDL_RenderPresent( mainRenderer );
-                /* For when this is made into a proper game
-                if( curState == TITLE_SCREEN )
-                {
-
-                }
-                else if( curState = IN_GAME )
-                {
-
-                
-
-                }
-                */
 
             }
         }
@@ -304,14 +239,6 @@ void drawWorld( World* level, int camX, int camY )
 
 void drawPlayer( Player* player, int camX, int camY )
 {
-    /*
-    SDL_Rect outputSprite;
-    
-    // The width and height of the sprites will always be the same.
-    outputSprite.w = player->getPlayerSize();
-    outputSprite.h = player->getPlayerSize() * 2;
-    */
-
     // The location on the screen that the player will be drawn at.
     int renderX = player->getXPos() - camX,
         renderY = player->getYPos() - camY;

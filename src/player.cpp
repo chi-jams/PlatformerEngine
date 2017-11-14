@@ -52,50 +52,6 @@ Player::Player()
     // 34 miliseconds is the max amount of time between updates allowed.
     // This is the amount that would cause the game to run at 30 fps.
     MAX_DELTA_TIME = 34;
-
-    /*
-    // Position
-    x = 0;
-    y = 0;
-
-    // Current Move speed
-    xVel = 0;
-    yVel = 0;
-
-    // Size of player relative to level
-    w = DEFAULT_PLAYER_SIZE;
-    h = 2 * w;
-
-    // We want to check all four sides of the
-    // player to see if he's colliding with
-    // anything.
-    for( int i = 0; i < NUM_DIRECTIONS; i++ )
-    {
-        check_dir[i] = ENABLED;
-    }
-
-    // Constant magnitude of speed
-    // in given dimension
-    xSpeed = 0;
-    ySpeed = 0;
-
-    xAccel = 0;
-
-    // How many hits the player can take.
-    health = 0;
-
-    gravityEnabled = false;
-
-    jumpReleased = false;
-
-    facing = RIGHT;
-
-    timeLastPolled = 0;
-
-    // 34 miliseconds is the max amount of time between updates allowed.
-    // This is the amount that would cause the game to run at 30 fps.
-    MAX_DELTA_TIME = 34;
-    */
 }
 
 Player::Player( int x, int y, int world_size )
@@ -108,55 +64,6 @@ Player::Player( int x, int y, int world_size )
 
     w = world_size;
     h = w * 2;
-
-    /*
-    // See above.
-    this->x = x;
-    this->y = y;
-    
-    xVel = 0;
-    yVel = 0;
-
-    w = world_size;
-    h = w * 2;
-
-    // We want to check all four sides of the
-    // player to see if he's colliding with
-    // anything.
-    for( int i = 0; i < NUM_DIRECTIONS; i++ )
-    {
-        check_dir[i] = ENABLED;
-    }
-
-    // Movement is now based off of units per second.
-    xSpeed = 550;
-    ySpeed = 2000;
-
-    xAccel = 4000;
-
-    health = 100;
-
-    jumpReleased = false;
-
-    // See rect.h for variable notes.
-    gravityEnabled = true;
-    onGround = false;
-    ascending = false;
-
-    setNoSurfaces();
-
-    jumpSpeed = 2000;
-    terminalVelocity = 2000;
-    gravity = 8000;
-
-    facing = RIGHT;
-
-    timeLastPolled = 0;
-
-    // 34 miliseconds is the max amount of time between updates allowed.
-    // This is the amount that would cause the game to run at 30 fps.
-    MAX_DELTA_TIME = 34;
-    */
 }
 
 // OLD move player function, use the one that has curTime as a function
@@ -192,23 +99,12 @@ void Player::movePlayer( int moveDir[4] )
         facing = LEFT;
 
     updateRect();
-    /*
-    // Update the position of the player based
-    // on velocity.
-    x += xVel;
-    y += yVel;
-    */
 }
 
 
 void Player::movePlayer( int moveDir[4], int curTime )
 {
     updateTime( curTime );
-
-    // Move the player left or right.
-    //xVel = moveDir[ RIGHT ] * xSpeed - moveDir[ LEFT ] * xSpeed;
-
-
 
     //WALKING//
     
