@@ -34,7 +34,7 @@ class Player: public Rect
         Player( int xPos, int yPos, int world_size = DEFAULT_PLAYER_SIZE );
 
         // Updated version of player actions, uses variable time step
-        void movePlayer( int moveDir[4], int curTime );
+        void movePlayer( int moveDir[4], double deltaTime );
 
         int getPlayerHealth() { return health; }       
 };

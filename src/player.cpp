@@ -64,12 +64,12 @@ Player::Player( int x, int y, int world_size )
     h = w * 2;
 }
 
-void Player::movePlayer( int moveDir[4], int deltaTime )
+void Player::movePlayer( int moveDir[4], double deltaTime )
 {
     //WALKING//
     
     // The player will change his movement based on a multiple of this value.
-    float runSpeed = ( (float)xAccel / 1000 ) * deltaTime;
+    double runSpeed = xAccel * deltaTime;
 
     // If the player wants to move right, start accelerating to the right,
     // and maintain their speed if they're going as fast or faster than the

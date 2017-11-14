@@ -71,11 +71,13 @@ void drawPlayer( Player* player, int cameraX = 0, int cameraY = 0 );
 void drawHitBoxes( World* level, int cameraX = 0, int cameraY = 0 );
 
 
-unsigned int curTime = 0;
+double curTime = 0;
 
-unsigned int lastTime = 0;
+double lastTime = 0;
 
-unsigned int deltaTime = 0;
+double deltaTime = 0;
+
+const double MAX_TIMESTEP = 0.0034;
 
 int main( int argc, char* args[] )
 {
@@ -144,15 +146,20 @@ int main( int argc, char* args[] )
         ////////////////////////////////////////////////////
         // Put all game updating related stuff below here //
         ////////////////////////////////////////////////////
-
-        curTime = (int)clock(); 
-        //deltaTime = (lastTime - curTime) >> 10;
+        
+        curTime = (double)clock() / CLOCKS_PER_SEC; 
+        deltaTime = curTime - lastTime;
+        if( deltaTime > MAX_TIMESTEP) 
+        {
+            deltaTime = MAX_TIMESTEP;
+        }
+        //std::cout << lastTime << ", " << curTime << ", " << (curTime - lastTime) << std::endl;
+        std::cout << deltaTime << std::endl;
         lastTime = curTime;
-        deltaTime = 2;
+        //deltaTime = 2;
 
         //player->updateRect();
         player->movePlayer( moveDir, deltaTime );
-        std::cout << player->getXPos() << ", " << player->getYPos() << std::endl;
         player->setMapX( player->getXPos() / newWorld->getTileSize() );
         player->setMapY( player->getYPos() / newWorld->getTileSize() );
         

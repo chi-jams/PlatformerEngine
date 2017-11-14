@@ -14,9 +14,6 @@ class Rect
         // cycles have occured.
         //int timeLastPolled;
 
-        // How much time has elapsed since the last cycle.
-        //int deltaTime;
-
         // The largest amount of time that can occur between updates.
         int MAX_DELTA_TIME;
 
@@ -69,7 +66,7 @@ class Rect
         Rect( int x, int y, int w, int h );
 
         // Does all the moving of the rectangle object.
-        void updateRect( int deltaTime );
+        void updateRect( double deltaTime );
 
         // Updates how much time has elapsed since the last cycle, used in
         // all of the time based updating methods.
@@ -89,7 +86,7 @@ class Rect
         direction collidesNoOverlap( Rect* inputRect );
 
         // If gravity is enabled on the object, make that object fall.
-        void updateGravity( int deltaTime );
+        void updateGravity( double deltaTime );
 
         // If gravity applies, and the rectangle can jump
         void jump();
