@@ -79,8 +79,14 @@ double deltaTime = 0;
 
 const double MAX_TIMESTEP = 0.0034;
 
-int main( int argc, char* args[] )
+int main( int argc, char* argv[] )
 {
+    if( argc > 2 ) 
+    {
+        std::cout << "Usage: ./platformer [LEVEL]" << std::endl;
+        exit(-1);
+    }
+    
     if( !init() )
     {
         std::cout<< "Failed to initialize! SDL Error: " << SDL_GetError() << std::endl;
@@ -98,7 +104,11 @@ int main( int argc, char* args[] )
 
     gameState curState = IN_GAME;
 
-    std::string loadedLevel = "Levels/level7.txt";
+    std::string loadedLevel = "Levels/level4.txt";
+    if( argc == 2 )
+    {
+        loadedLevel = argv[1];
+    }
 
     World* newWorld = new World( loadedLevel );
 
@@ -147,7 +157,7 @@ int main( int argc, char* args[] )
         deltaTime = curTime - lastTime;
         lastTime = curTime;
 
-        if( deltaTime > MAX_TIMESTEP) 
+        if( deltaTime > MAX_TIMESTEP ) 
             deltaTime = MAX_TIMESTEP;
 
         player->movePlayer( moveDir, deltaTime );
