@@ -66,42 +66,6 @@ Player::Player( int x, int y, int world_size )
     h = w * 2;
 }
 
-// OLD move player function, use the one that has curTime as a function
-void Player::movePlayer( int moveDir[4] )
-{
-    // Move the player left or right.
-    xVel = moveDir[ RIGHT ] * xSpeed - moveDir[ LEFT ] * xSpeed;
-
-    // If the up button is pressed, then jump
-    if( moveDir[ UP ] && jumpReleased )
-    {
-        jump();
-        jumpReleased = false;
-    }
-    // If the player wants to make the jump shorter,
-    // slow down significantly and begin falling.
-    else if( !moveDir[ UP ] && ascending )
-    {
-        stopAscending();
-    }
-    // If the player has landed and has released the jump button,
-    // then allow them to jump the next time they try to jump
-    else if( !moveDir[ UP ] && onGround )
-    {
-        jumpReleased = true;
-    }
-
-    updateGravity();
-
-    if( xVel > 0 )
-        facing = RIGHT;
-    else if( xVel < 0 )
-        facing = LEFT;
-
-    updateRect();
-}
-
-
 void Player::movePlayer( int moveDir[4], int curTime )
 {
     updateTime( curTime );
