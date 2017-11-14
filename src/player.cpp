@@ -46,10 +46,6 @@ Player::Player()
     gravity = 8000;
 
     facing = RIGHT;
-
-    // 34 miliseconds is the max amount of time between updates allowed.
-    // This is the amount that would cause the game to run at 30 fps.
-    MAX_DELTA_TIME = 34;
 }
 
 Player::Player( int x, int y, int world_size )

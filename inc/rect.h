@@ -14,9 +14,6 @@ class Rect
         // cycles have occured.
         //int timeLastPolled;
 
-        // The largest amount of time that can occur between updates.
-        int MAX_DELTA_TIME;
-
         // Position of the top left corner of the rectangle.
         float x, y;
 
